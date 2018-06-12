@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+<div class="w3-container">
+
+  <table class="w3-table-all w3-centered" style="margin-top:43px; ">
+		  <tr>
+		    <td>Name</td>
+		    <td>{{ws.name}}</td>
+		  </tr>
+		    <td>Temperature</td>
+		    <td>{{ws.climate_set.last.temperature}}</td>
+		  </tr>
+		  <tr>
+		    <td>Humidity</td>
+		    <td>{{ws.climate_set.last.humidity}}</td>
+		  </tr>
+		  <tr>
+		    <td>Raining</td>
+		    <td id="1"></td>
+		  </tr>
+		  <tr>
+	</table>
+
+</div>
+<script type="text/javascript">
+                if ({{ws.climate_set.last.raining}}>10){
+                    document.getElementById('1').innerHTML="Yes"
+                }
+                else{
+                    document.getElementById('1').innerHTML="No"
+                }
+            </script>
+</html>

@@ -1,0 +1,50 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+   <title>sm</title>
+   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript">
+
+window.onload = function () {
+  var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    exportEnabled: true,
+    zoomEnabled: true,
+ 
+    
+    title:{
+      text: "Soil Moisture"              
+    },
+    axisX:{      
+        interval: 1,
+        labelAngle: -50,
+        labelFontColor: "rgb(0,75,141)",  
+      },
+      axisY:{      
+        gridThickness:0
+      },
+    data: [              
+    {
+      // Change type to "doughnut", "line", "splineArea", etc.
+      type: "spline",
+      
+      dataPoints: [
+      {% for i in plant.soil_moisture_set.all %}
+              {label:"{{i.time}}",  y:{{i.sm_value}} },
+          {% endfor %}
+      ]
+    }
+    ]
+  });
+  chart.render();
+}
+</script>
+ </head>
+ <body>
+ 
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+
+ </body>
+ </html>
+ 
+

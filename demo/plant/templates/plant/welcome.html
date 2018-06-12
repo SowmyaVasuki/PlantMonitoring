@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<title>Welcome</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nixie+One" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body class="w3-white">
+
+<style>
+.w3-c1 {color:#fff !important;background-color:#e6ffe6 !important}
+.w3-website {
+    font-family: 'Inconsolata', monospace;
+}
+.w3-quote {
+    font-family: 'Nixie One', cursive;
+}
+
+</style>
+
+<div class="w3-container w3-black w3-quote w3-xxlarge w3-padding-23"> 
+    	<center>Plant Monitoring System</center>
+</div>
+
+<div class="w3-row">
+
+
+	<div class="w3-container w3-col m9 w3-white w3-mobile" style="height: 550px;"> 
+			<div class="w3-quote w3-container w3-col m4 w3-white w3-mobile " style="height: 400px;">
+			   <div style="height: 100px;" ></div>
+			   <center style="text-shadow:3px 7px 4px #ccffcc"> 
+			<span class="w3-xxlarge"> "Growing green fields and a green environment."</span>
+			</center>
+			</div>
+			<div class="w3-container w3-col m8 w3-white w3-mobile">
+				<div style="height: 40px;" ></div>
+			    	<img src="https://cdn.dribbble.com/users/36602/screenshots/3544179/growing-tree-svg-animation-recut.gif" alt="Person" style="width:100%">
+			</div>    		
+	</div>
+
+	<div class="w3-container w3-white w3-col m3  w3-mobile w3-border-left" style="height: 550px; padding: 0px; margin: 0;"> 
+	    
+	    <div class="w3-card-5 w3-bar w3-light-green ">
+		<center>
+		  <span class="w3-button tablink w3-green" style="width: 40%;" onclick="openCity(event,'Login')">Login</span>
+		  <span class="w3-button tablink" style="width: 40%;" onclick="openCity(event,'Register')">Register</span>
+		</center>
+		</div>
+
+		<div id="Login" class="w3-container w3-sand city" style="padding: 0px;height: 490px;width: 100%;">
+			<iframe src="/login" style="height: 100%;width: 100%;border:none;"></iframe>
+		</div>
+
+		<div id="Register" class="w3-container w3-sand city" style="padding: 0px;height: 490px;width: 100%;display:none" >
+		  	<iframe src="/register" style="height: 100%;width: 100%;border:none;"></iframe> 
+		</div>
+	</div>
+	
+</div>
+
+<div class="w3-container w3-bottom w3-black"> 
+			<center>Made by Group 4	</center>
+</div>
+
+
+<script>
+function openCity(evt,cityName) {
+    var i, x, tablinks;
+    x = document.getElementsByClassName("city");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < x.length; i++) {
+    	console.log(i)
+        tablinks[i].className = tablinks[i].className.replace(" w3-green", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " w3-green";
+}
+</script>
+
+</body>
+</html>

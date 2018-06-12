@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<title>Main</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+
+<div class="w3-container w3-bottom w3-black" style="z-index:4;"> 
+        <p>Group-4</p>
+</div>
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-center">Plant Monitoring System</span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+      <img src="https://cdn4.iconfinder.com/data/icons/home-utilities-color/512/005-cleaner-48.png" class="w3-circle w3-margin-right" style="width:46px">
+    </div>
+  
+    <div class="w3-col s8 w3-bar">
+      <span>Welcome, <strong>{{name}}</strong></span><br>
+      <button class="w3-bar-item w3-button" onclick="window.open( (window.location.href).replace('Dashboard','logout'),'_self' )">Logout <i class="fa fa-sign-out"></i></button> 
+    </div>
+  
+  </div>
+  
+  <hr>
+  
+  <div class="w3-container">
+    <h5><a href="/new" target="blank">Dashboard</a></h5>
+  </div>
+  <div class="w3-bar-block">
+
+    <a class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    
+    <button onclick="document.getElementById('id01').style.display='block';document.getElementById('frame2').src='addplant/{{farmer}}'" class="w3-button w3-block w3-left-align w3-green"><i class="fa fa-plus-square"></i>  Add plant</button>
+    <div class="w3-dropdown-hover">
+      <a class="w3-bar-item w3-button w3-padding w3-teal"><i class="fa fa-hand-grab-o"></i>  Control Hardware <i class="fa fa-caret-down"></i></a>
+      <div class="w3-dropdown-content w3-bar-block">
+        {% for i in plants %}
+        <button onclick="document.getElementById('id01').style.display='block';document.getElementById('frame2').src='control/{{i.plant_id}}'" class="w3-button w3-block w3-left-align"><i class="fa fa-area-chart"></i> Plant {{i.plant_id}}</button>
+        {% endfor %}
+      </div>
+    </div>
+    
+   
+    </div>
+    
+        
+    
+    <br><br>
+  </div>
+</nav>
+
+<!-- Modal -->
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-card-4">
+      
+      <header class="w3-container w3-teal"> 
+        <span onclick="document.getElementById('id01').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <p>Plant Monitoring</p>
+      </header>
+
+      <div class="w3-container" style="height: 400px;">
+      	<iframe id="frame2" style="height:100%; width: 100%; border: none;"></iframe>  
+      </div>
+
+      <footer class="w3-container w3-teal">
+       <p>Group-4</p>
+      </footer>
+    </div>   
+</div>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" >
+    
+  </header>
+
+	<div class="w3-container w3-pink" id='map' style="height: 500px;">
+  	  </div>
+
+	<!--div class="w3-container w3-green" style="height: 400px;margin-top:43px;padding: 0px;">
+	  </div-->
+
+  
+  <!-- Footer -->
+  <!--footer class="w3-container w3-padding-16 w3-light-grey">
+    <h4></h4>
+    
+  </footer-->
+
+  <!-- End page content -->
+</div>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+
+<script>
+      function initMap() {
+
+        var uluru = {lat: {{lat}}, lng: {{long}} };
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: uluru,
+          scrollwheel:false,
+          mapTypeId:'satellite',
+          styles: [
+                {
+                    "featureType": "all",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#ffffff"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "all",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        },
+                        {
+                            "lightness": 13
+                        }
+                    ]
+                },
+                {
+                    "featureType": "administrative",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "administrative",
+                    "elementType": "geometry.stroke",
+                    "stylers": [
+                        {
+                            "color": "#144b53"
+                        },
+                        {
+                            "lightness": 14
+                        },
+                        {
+                            "weight": 1.4
+                        }
+                    ]
+                },
+                {
+                    "featureType": "landscape",
+                    "elementType": "all",
+                    "stylers": [
+                        {
+                            "color": "#08304b"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#0c4152"
+                        },
+                        {
+                            "lightness": 5
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "geometry.stroke",
+                    "stylers": [
+                        {
+                            "color": "#09ffc3"
+                        },
+                        {
+                            "lightness": 25
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.arterial",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.arterial",
+                    "elementType": "geometry.stroke",
+                    "stylers": [
+                        {
+                            "color": "#ff09d8"
+                        },
+                        {
+                            "lightness": 16
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.local",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit",
+                    "elementType": "all",
+                    "stylers": [
+                        {
+                            "color": "#146474"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "all",
+                    "stylers": [
+                        {
+                            "color": "#021019"
+                        }
+                    ]
+                }
+            ]
+        });
+
+        var image = "https://cdn1.iconfinder.com/data/icons/icons-for-a-site-1/64/advantage_eco_friendly-48.png";
+        {% for plant in plants %}
+	        var pos = {lat: {{plant.latitude}}, lng: {{plant.longitude}}};
+	        var marker = new google.maps.Marker({
+	       
+	          position: pos,
+	          map: map,
+	          icon:image,
+	          title:'{{plant.name}}',
+
+	        });
+	      
+			google.maps.event.addListener(marker,'click',function(e){
+                window.open("http://sowmyavasukijallepalli.pythonanywhere.com/madhu/{{plant.plant_id}}","blank");
+			});
+		{% endfor %}
+
+        var image = "https://cdn2.iconfinder.com/data/icons/colored-weather/96/rainbow_forecast_weather-48.png";
+        {% for station in stations %}
+	        var pos = {lat: {{station.latitude}}, lng: {{station.longitude}}};
+	        var marker1 = new google.maps.Marker({
+	       
+	          position: pos,
+	          map: map,
+	          icon:image,
+	          title:'{{station.name}}',
+
+	        });
+	      
+			google.maps.event.addListener(marker1,'click',function(e){
+        document.getElementById('id01').style.display='block';
+        document.getElementById('frame2').src = "ws_dashboard/{{station.ws_id}}/";
+			});
+		{% endfor %}
+
+		var image = "https://cdn4.iconfinder.com/data/icons/water-4/512/Water_drop_in_water-48.png";
+		{% for body in waterbodies %}
+	        var pos = {lat: {{body.latitude}}, lng: {{body.longituge}} };
+	        var marker1 = new google.maps.Marker({
+	       
+	          position: pos,
+	          map: map,
+	          icon:image,
+	          title:'{{body.name}}',
+
+	        });
+	      
+			google.maps.event.addListener(marker1,'click',function(e){
+        document.getElementById('id01').style.display='block';
+        document.getElementById('frame2').src = "wb_illustration/{{body.wb_id}}/";
+			});
+		{% endfor %}
+
+      }
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp70lXz_JsTLs9JEoXOq3oVSVW6ILBkrk&callback=initMap">
+</script>
+
+</body>
+</html>

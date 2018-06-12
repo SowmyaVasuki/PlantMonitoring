@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<form class="w3-container w3-center" action ="{% url 'control' pid %}" method="post">
+  {% csrf_token %}
+  <p>Current mode: {{a.mode}}</p>
+  <p>Current status: {{a.status}}</p>
+  <hr>
+  <input type="text" name="id" value="{{pid}}" class="w3-hide">
+  <p>
+  <input class="w3-radio" type="radio" name="Status" value="Automatic" {% if a.mode == 'Automatic' %} checked {% endif %}>
+  <label>Pump Automatic</label></p>
+  <p>
+  <input class="w3-radio" type="radio" name="Status" value="ON" {% if a.status == 'ON' and a.mode != 'Automatic' %} checked {% endif %}>
+  <label>Pump ON</label></p>
+  <p>
+  <input class="w3-radio" type="radio" name="Status" value="OFF" {% if a.status == 'OFF' and a.mode != 'Automatic' %} checked {% endif %}>
+  <label>Pump OFF</label></p>
+
+  <input type="submit" value="Make Changes">
+
+</form>
+
+</body>
+</html> 

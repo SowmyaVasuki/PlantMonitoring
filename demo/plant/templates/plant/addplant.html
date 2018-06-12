@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<div class="w3-container">
+  <form class="w3-container" action ="http://127.0.0.1:8000/addplant/{{ farmer }}/" method="post">
+  {% csrf_token %}
+  {% if message %}
+    {{message}}
+  {% endif %}
+    <p>
+    <label>Plant Name</label>
+    <input class="w3-input w3-border" type="text" name="id"></p>
+    <p>
+    <label>Latitude</label>
+    <input class="w3-input w3-border" type="text" name="lat">
+    
+    <label>Longitude</label>
+    <input class="w3-input w3-border" type="text" name="log"></p>
+    
+    <input class="w3-btn w3-light-green" type="submit" value="Add"></button>
+  </form>
+</div>
+
+</body>
+</html>

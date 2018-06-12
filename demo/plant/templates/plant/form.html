@@ -1,0 +1,47 @@
+<h1>Total number of plants: {{noplants}}</h1>
+<form action ="{% url 'login' %}" method="post">
+{% csrf_token %}
+
+  Name:
+  <input type="text" name="Name"><br>
+  wsid :
+  <input type="text" name="wsid">(later select the ws id intelligently)<br>
+  longitude:
+  <input type="text" name="long"><br>
+  latitude:
+  <input type="text" name="lat"><br>
+
+  <input type="submit" value="Add plant" />
+</form>
+
+<h1> Farmer Login </h1>
+
+<form action ="{% url 'login' %}" method="post">
+{% csrf_token %}
+
+  Farmer ID:
+  <input type="text" name="id"><br>
+  Password :
+  <input type="password" name="password"><br>
+  
+  <input type="submit" value="Add plant" />
+</form>
+
+<h1> Farmer Registration </h1>
+
+<form action ="{% url 'register' %}" method="post">
+{% csrf_token %}
+
+
+
+  First Name:
+  <input type="text" name="fn"><br>
+  Last Name:
+  <input type="text" name="ln"><br>
+  Password:
+  <input type="password" name="p1"><br>
+  Password(Again):
+  <input type="password" name="p2"><br>
+  
+  <input type="submit" value="Register" />
+</form>

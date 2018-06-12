@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demo</title>
+	<style type="text/css">
+		#tank{
+			top: 35%;
+			left: 25%;
+			height: 300px;
+			width: 200px;
+			position: absolute;
+			background-color: #f1f1f1;
+			border: 5px solid #002233;
+			border-top:1px; 
+    		border-radius: 0px 0px 30px 30px;
+		}
+		#water{
+			bottom:0%;
+			width: 100%;
+			position: absolute;
+			background-color: #cceeff;
+    		border-radius: 0px 0px 30px 30px;	
+    		z-index:1;
+		}
+		#per{
+			height: 100%;
+			width: 100%;
+			position: absolute;
+    		border-radius: 0px 0px 30px 30px;
+    		z-index: 2;
+			font-size: 50px;    		
+		}
+		#Text{
+			width:500px;
+			height: 200px;
+			position: absolute;
+			top:63%;
+			font-size: 30px;
+			text-align: center;
+		}
+		h1,h3{
+			padding: 0;
+			margin: 0;
+		}
+	</style>
+</head>
+<body>
+	<center>
+		<h1>Water Body: {{wb.name}}</h1>		
+		<h2>ID: {{wb.wb_id}}</h2>
+		<h2>(Long,Lat): ({{wb.longituge}},{{wb.latitude}})</h2>
+	</center>
+
+<div id="tank" >	
+	<center>
+	<div id="per"><br><br><br>{{wb.water_level_set.last.water_level}}%</div>
+	</center>
+	<div id="water" style="height: {{wb.water_level_set.last.water_level}}%;"></div>
+</div>
+
+<script>
+var myVar = setInterval(myTimer, 5000);
+function myTimer() {
+	location.reload();
+}
+</script>
+</body>
+</html>

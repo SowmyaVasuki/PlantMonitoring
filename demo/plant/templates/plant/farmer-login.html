@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<div class="w3-container">
+  {% if Valid %}
+  <script type="text/javascript">
+    window.parent.open( (window.location.href).replace('login','Dashboard/{{fid}}'),'_self' );
+  </script>
+  {% endif %}
+        
+  <form class="w3-container" action ="{% url 'login' %}" method="post">
+      {% csrf_token %}
+        <p>{{IDinvalid}}</p>
+        <p>
+        <label>Username</label>
+        <input class="w3-input w3-border" type="text" name="username"></p>
+        <p>{{Passwordinvalid}}</p>
+        <p>
+        <label>Password</label>
+        <input class="w3-input w3-border" type="password" name="password"></p>
+        
+        <input class="w3-btn w3-light-green" type="submit" value="Login"></button>
+
+  </form>
+</div>
+
+</body>
+</html>

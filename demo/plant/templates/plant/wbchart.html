@@ -1,0 +1,51 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+   <title>sm</title>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript">
+
+window.onload = function () {
+  var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+  theme: "light2", // "light1", "light2", "dark1", "dark2"
+    
+    title:{
+      text: "Water Level"              
+    },
+    axisX:{      
+        interval: 8,
+        labelAngle: -50,
+        labelFontColor: "rgb(0,75,141)",  
+      },
+      axisY:{      
+        gridThickness:0
+      },
+    data: [              
+    {
+      // Change type to "doughnut", "line", "splineArea", etc.
+      type: "column",
+      showInLegend: true, 
+          legendText: "Water Level",
+      dataPoints: [
+      {% for i in wb.water_level_set.all %}
+              {label:"{{i.time}}",  y:{{i.water_level}} },
+          {% endfor %}
+      ]
+    }
+    ]
+  });
+  chart.render();
+}
+</script>
+
+
+ </head>
+ <body>
+ 
+<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+
+ </body>
+ </html>
+ 
+

@@ -1,0 +1,78 @@
+<html>
+  <head>
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Temperature', {{ws.climate_set.last.temperature}}],
+          ['Humidity', {{ws.climate_set.last.humidity}}],
+        ]);
+
+        var options = {
+          width: 410, height: 300,
+          redFrom: 90, redTo: 100,
+          yellowFrom:75, yellowTo: 90,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+
+        
+      }
+    </script>
+
+    <style type="text/css">
+      body{
+        padding: 0;
+        margin: 0;
+      }
+      #chart_div{
+        position: absolute;
+        top:40%;
+        left: 2%;
+        width: 96%;
+        height: 43%;
+      }
+      #data{
+        position: absolute;
+        top:2%;
+        left: 2%;
+        width: 96%;
+        height: 53%;
+      }  
+    </style>
+  </head>
+  <body>
+    <div id="data">
+      <center>
+        <h1>Weather Station: {{ws.name}}</h1>
+        <h2>(Long,Lat):({{ws.longitude}},{{ws.latitude}})</h2>  
+        <h2 id="1">Rain: </h2>
+        
+      </center>
+      
+    </div>
+    <div id="chart_div"></div>
+    <script type="text/javascript">
+                if ({{ws.climate_set.last.raining}}>10){
+                    document.getElementById('1').innerHTML="Yes"
+                }
+                else{
+                    document.getElementById('1').innerHTML="No"
+                }
+            </script>
+<script>
+var myVar = setInterval(myTimer, 5000);
+function myTimer() {
+  location.reload();
+}
+</script>
+  </body>
+</html>

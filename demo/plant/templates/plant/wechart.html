@@ -1,0 +1,67 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+   <title>sm</title>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript">
+
+window.onload = function () {
+  var chart = new CanvasJS.Chart("chartContainer", {
+    title:{
+      text: "Climate"              
+    },
+    axisX:{      
+        interval: 1,
+        labelAngle: -50,
+        labelFontColor: "rgb(0,75,141)", 
+
+        crosshair: {
+            enabled: true,
+            snapToDataPoint: true
+        } 
+      },
+      axisY:{      
+        gridThickness:0
+      },
+    data: [              
+    {
+      // Change type to "doughnut", "line", "splineArea", etc.
+      type: "line",
+      showInLegend: true, 
+          legendText: "Temperature",
+      dataPoints: [
+      {% for i in station.climate_set.all %}
+            {label:"{{i.time}}",  y:{{i.temperature}}},
+        {% endfor %}
+      ]
+    },             
+    {
+      // Change type to "doughnut", "line", "splineArea","bubble" etc.
+      type: "line",
+      showInLegend: true, 
+      legendText: "Humidity",
+      lineDashType:"dash",
+      dataPoints: [
+      {% for i in station.climate_set.all %}
+            {label:"{{i.time}}", y:{{i.humidity}}},
+        {% endfor %}
+      ]
+    }
+    ]
+  });
+  chart.render();
+}
+
+
+
+</script>
+
+ </head>
+ <body>
+ 
+<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+
+ </body>
+ </html>
+ 
+

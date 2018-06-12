@@ -1,0 +1,94 @@
+<!--
+context = {
+		'plants':Plant.objects.all(),
+		'waterbodies': Water_Body.objects.all(),
+		'weathers':Weather_Station.objects.all(),
+	}
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Maps</title>
+</head>
+<style type="text/css">
+	#map{
+			height: 100%;
+			width:100%;
+			position: absolute;
+			background-color: grey;
+		}
+</style>
+<body>
+	<div id="map"></div>
+
+<script>
+      function initMap() {
+
+        var uluru = {lat: {{plants.last.latitude}}, lng: {{plants.last.longitude}} };
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: uluru,
+          scrollwheel:false,
+          mapTypeId:'satellite',
+        });
+
+        var image = "https://cdn1.iconfinder.com/data/icons/icons-for-a-site-1/64/advantage_eco_friendly-64.png";
+        {% for plant in plants %}
+	        var pos = {lat: {{plant.latitude}}, lng: {{plant.longitude}}};
+	        var marker = new google.maps.Marker({
+	       
+	          position: pos,
+	          map: map,
+	          icon:image,
+	          title:'{{plant.name}}',
+
+	        });
+	      
+			google.maps.event.addListener(marker,'click',function(e){
+				window.open("your url for specific plant");
+			});
+		{% endfor %}
+
+        var image = "https://cdn2.iconfinder.com/data/icons/colored-weather/96/rainbow_forecast_weather-64.png";
+        {% for station in weathers %}
+	        var pos = {lat: {{station.latitude}}, lng: {{station.longitude}}};
+	        var marker1 = new google.maps.Marker({
+	       
+	          position: pos,
+	          map: map,
+	          icon:image,
+	          title:'{{station.name}}',
+
+	        });
+	      
+			google.maps.event.addListener(marker1,'click',function(e){
+				window.open("your url for specific weather station");
+			});
+		{% endfor %}
+
+		var image = "https://cdn4.iconfinder.com/data/icons/water-4/512/Water_drop_in_water-64.png";
+		{% for body in waterbodies %}
+	        var pos = {lat: {{body.latitude}}, lng: {{body.longituge}} };
+	        var marker1 = new google.maps.Marker({
+	       
+	          position: pos,
+	          map: map,
+	          icon:image,
+	          title:'{{body.name}}',
+
+	        });
+	      
+			google.maps.event.addListener(marker1,'click',function(e){
+				window.open("your url for specific waterbody");
+			});
+		{% endfor %}
+
+      }
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp70lXz_JsTLs9JEoXOq3oVSVW6ILBkrk&callback=initMap">
+</script>
+
+</body>
+</html>
